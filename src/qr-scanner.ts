@@ -84,7 +84,7 @@ class QrScanner {
             overlay?: HTMLDivElement,
             /** just a temporary flag until we switch entirely to the new api */
             returnDetailedScanResult?: true,
-            domTarget?: Element,
+            domTarget?: Element | ShadowRoot,
         },
     );
     /** @deprecated */
@@ -118,7 +118,7 @@ class QrScanner {
             overlay?: HTMLDivElement,
             /** just a temporary flag until we switch entirely to the new api */
             returnDetailedScanResult?: true,
-            domTarget?: Element,
+            domTarget?: Element | ShadowRoot,
         },
         canvasSizeOrCalculateScanRegion?: number | ((video: HTMLVideoElement) => QrScanner.ScanRegion),
         preferredCamera?: QrScanner.FacingMode | QrScanner.DeviceId,
@@ -186,7 +186,7 @@ class QrScanner {
         }
 
         const domTarget = options.domTarget || document.body;
-        if (!(domTarget instanceof Element)) {
+        if (!(domTarget instanceof Element || domTarget instanceof ShadowRoot)) {
             throw new Error("Invalid domTarget provided");
         }
         if (!domTarget.contains(video)) {
